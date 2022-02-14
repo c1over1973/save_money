@@ -1,4 +1,4 @@
-package com.example.save_money
+package com.example.save_money.data
 
 object Constants {
 

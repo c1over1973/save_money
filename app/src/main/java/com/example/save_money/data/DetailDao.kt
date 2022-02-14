@@ -1,8 +1,8 @@
-package com.example.save_money
+package com.example.save_money.data
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.example.save_money.Constants.DETAIL_TABLE
+import com.example.save_money.data.Constants.DETAIL_TABLE
 
 @Dao
 interface DetailDao {
@@ -16,6 +16,6 @@ interface DetailDao {
     @Update
     suspend fun updateDetail(detail: Detail)
 
-    @Query("SELECT * FROM $DETAIL_TABLE")
+    @Query("SELECT * FROM detail_table")
     fun readAllDetail(): LiveData<List<Detail>>
 }
