@@ -42,24 +42,29 @@ fun AmountComponent(
 
 
     Row(
+//        modifier = Modifier
+//            .width(300.dp)
+//            .height(40.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.End
     ) {
-        Column(Modifier.padding(end = 40.dp)) {
-            Text(text = "目前金額")
+        Column(modifier = Modifier.width(90.dp)) {
+            Text(text = "目前金額", textAlign = TextAlign.Center)
             Text(
                 text = "$" + df.format(currentValue),
                 textAlign = TextAlign.Center,
-                modifier = Modifier.width(57.dp)
+//                modifier = Modifier.width(70.dp)
             )
         }
+        
+        Spacer(modifier = Modifier.width(100.dp))
 
-        Column(Modifier.padding(start = 40.dp)) {
-            Text(text = "目標金額")
+        Column(modifier = Modifier.width(90.dp)) {
+            Text(text = "目標金額", textAlign = TextAlign.Center)
             Text(
                 text = "$" + df.format(targetValue),
                 textAlign = TextAlign.Center,
-                modifier = Modifier.width(57.dp)
+//                modifier = Modifier.width(70.dp)
             )
         }
     }

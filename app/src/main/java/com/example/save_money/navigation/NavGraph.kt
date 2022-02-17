@@ -9,6 +9,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.save_money.screen.add.AddScreen
+import com.example.save_money.screen.detail.DetailScreen
 import com.example.save_money.screen.home.HomeScreen
 import com.example.save_money.screen.home.HomeViewModel
 
@@ -36,6 +37,10 @@ fun SetupNavGraph(
         
         composable(route = Screen.Add.route){
             AddScreen(navController = navController)
+        }
+
+        composable(route = Screen.Detail.route){
+            DetailScreen(navController = navController)
         }
     }
 }

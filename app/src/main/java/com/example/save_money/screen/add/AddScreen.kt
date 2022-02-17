@@ -1,5 +1,6 @@
 package com.example.save_money.screen.add
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -10,6 +11,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
@@ -22,6 +24,7 @@ fun AddScreen(
     addViewModel: AddViewModel = hiltViewModel()
 ) {
 
+    val context = LocalContext.current
 
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -58,7 +61,7 @@ fun AddScreen(
                 amount = if (it.isNotEmpty()) {
                     it.toInt()
                 } else {
-                   0
+                    0
                 }
             },
             label = {
@@ -71,9 +74,14 @@ fun AddScreen(
 
         val goal = Goals(text, amount, 0)
         Button(onClick = {
-            addViewModel.addGoals(goal)
-            navController.navigate(Screen.Home.route)
-        }){}
+            if (amount != 0) {
+                addViewModel.addGoals(goal)
+                navController.navigate(Screen.Home.route)
+            } else {
+                Toast.makeText(context, "目標金額不能為0!", Toast.LENGTH_SHORT).show()
+            }
+        }
+        ) {}
 
     }
 }
