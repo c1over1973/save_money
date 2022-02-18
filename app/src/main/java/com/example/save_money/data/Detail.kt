@@ -8,7 +8,8 @@ import kotlinx.serialization.Serializable
 @Serializable
 @Entity(tableName = DETAIL_TABLE)
 data class Detail(
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
+    val id: Int,
     val amount: Int,
     val content: String,
     val date: String

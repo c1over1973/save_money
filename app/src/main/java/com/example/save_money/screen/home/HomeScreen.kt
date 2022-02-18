@@ -22,15 +22,19 @@ import com.example.save_money.data.Detail
 import com.example.save_money.navigation.Screen
 import com.example.save_money.navigation.SetupNavGraph
 import com.example.save_money.screen.Navigationbar
+import java.text.SimpleDateFormat
+import java.util.*
 
 @Composable
 fun HomeScreen(
     navController: NavHostController,
     homeViewModel: HomeViewModel = hiltViewModel(),
 ) {
-//    val navController = rememberNavController()
     val getgoals = homeViewModel.readAllGoals.observeAsState(listOf()).value
     val context = LocalContext.current
+    val sdf = SimpleDateFormat("M/dd hh:mm")
+    var currentDate = ""
+
 
     var openDialog = remember {
         mutableStateOf(false)
@@ -43,16 +47,6 @@ fun HomeScreen(
     var amount = remember {
         mutableStateOf(0)
     }
-
-//    var sum = remember {
-//        mutableStateOf(
-//            if (getgoals.isEmpty()) {
-//                0
-//            } else {
-//                getgoals[0].sum
-//            }
-//        )
-//    }
 
     Scaffold(
         topBar = {
@@ -94,7 +88,7 @@ fun HomeScreen(
                         },
                         completefun = {
                             homeViewModel.deleteAllGoals()
-                            homeViewModel.deleteAllDetail()
+                            homeViewModel.deleteAllDetails()
                             navController.navigate(Screen.Add.route)
                         }
                     )
@@ -106,7 +100,6 @@ fun HomeScreen(
                         } else {
                             getgoals[0].sum
                         },
-//                sum.value,
                         target =
                         if (getgoals.isEmpty()) {
                             0
@@ -118,6 +111,7 @@ fun HomeScreen(
                         modifier = Modifier.padding(top = 40.dp),
                         onClick = {
                             openDialog.value = true
+                            currentDate = sdf.format(Date())
                         }
                     ) {
                         Box(
@@ -132,10 +126,8 @@ fun HomeScreen(
                     AddDialog(
                         open = openDialog,
                         addfun = {
-//                    sum.value = amount.value + sum.value
-//                    val detail = Detail(amount.value, text.value, "")
-//                    homeViewModel.addDetail(detail)
-
+                            val detail = Detail(0, amount.value, text.value, currentDate)
+                            homeViewModel.addDetail(detail)
                             homeViewModel.updateSum(getgoals[0].goal, getgoals[0].sum + amount.value)
                             Toast.makeText(context, "已新增明細", Toast.LENGTH_SHORT).show()
                             text.value = ""

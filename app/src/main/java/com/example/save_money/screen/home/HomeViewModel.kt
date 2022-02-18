@@ -1,16 +1,11 @@
 package com.example.save_money.screen.home
 
-import android.util.Log
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.save_money.data.Detail
-import com.example.save_money.data.Goals
 import com.example.save_money.data.Repository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -28,21 +23,15 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    fun deleteAllDetail() {
-        viewModelScope.launch(Dispatchers.IO) {
-            repository.readAllDetail
-        }
-    }
-
-    fun addDetail(detail: Detail) {
+    fun addDetail(detail: Detail){
         viewModelScope.launch(Dispatchers.IO) {
             repository.addDetail(detail)
         }
     }
 
-    fun updateGoals(goals: Goals) {
+    fun deleteAllDetails() {
         viewModelScope.launch(Dispatchers.IO) {
-            repository.updateGoals(goals)
+            repository.deleteAllDetails()
         }
     }
 
@@ -52,10 +41,4 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-//    fun addGoals(){
-//        val goals = Goals("a", 1000)
-//        viewModelScope.launch(Dispatchers.IO) {
-//            repository.addGoals(goals)
-//        }
-//    }
 }

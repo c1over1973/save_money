@@ -51,7 +51,11 @@ fun CustomComponent(
         animatedIndicatorValue = allowedIndicatorValue.toFloat()
     }
 
-    val percentage = (animatedIndicatorValue / maxIndicatorValue) * 100
+    val percentage = if(animatedIndicatorValue > 0){
+        (animatedIndicatorValue / maxIndicatorValue) * 100
+    }else{
+        0f
+    }
 
     val sweepAngle by animateFloatAsState(
         targetValue = (3.6 * percentage).toFloat(),

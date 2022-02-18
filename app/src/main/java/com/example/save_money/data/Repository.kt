@@ -27,8 +27,8 @@ class Repository @Inject constructor(
         goalsDao.deleteAllGoals()
     }
 
-    suspend fun updateGoals(goals: Goals) {
-        goalsDao.updateGoals(goals)
+    suspend fun deleteAllDetails(){
+        detailDao.deleteAllDetails()
     }
 
     suspend fun updateSum(goal: String, sum: Int) {

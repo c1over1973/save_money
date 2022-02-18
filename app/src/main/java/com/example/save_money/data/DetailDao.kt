@@ -16,6 +16,9 @@ interface DetailDao {
     @Update
     suspend fun updateDetail(detail: Detail)
 
-    @Query("SELECT * FROM detail_table")
+    @Query("SELECT * FROM detail_table ORDER BY id DESC")
     fun readAllDetail(): LiveData<List<Detail>>
+
+    @Query("DELETE FROM detail_table")
+    suspend fun deleteAllDetails()
 }
