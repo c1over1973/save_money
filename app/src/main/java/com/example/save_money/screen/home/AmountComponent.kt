@@ -7,10 +7,8 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalTextInputService
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import java.text.DecimalFormat
 
 @Composable
@@ -48,23 +46,27 @@ fun AmountComponent(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.End
     ) {
-        Column(modifier = Modifier.width(90.dp)) {
+        Column(
+            modifier = Modifier.fillMaxWidth(0.5f),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
             Text(text = "目前金額", textAlign = TextAlign.Center)
             Text(
                 text = "$" + df.format(currentValue),
                 textAlign = TextAlign.Center,
-//                modifier = Modifier.width(70.dp)
             )
         }
-        
-        Spacer(modifier = Modifier.width(100.dp))
 
-        Column(modifier = Modifier.width(90.dp)) {
+//        Spacer(modifier = Modifier.fillMaxWidth(0.5f))
+
+        Column(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
             Text(text = "目標金額", textAlign = TextAlign.Center)
             Text(
                 text = "$" + df.format(targetValue),
                 textAlign = TextAlign.Center,
-//                modifier = Modifier.width(70.dp)
             )
         }
     }

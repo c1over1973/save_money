@@ -1,4 +1,4 @@
-package com.example.save_money.data
+package com.example.save_money.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

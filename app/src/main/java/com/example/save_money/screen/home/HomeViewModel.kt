@@ -2,8 +2,8 @@ package com.example.save_money.screen.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.save_money.data.Detail
-import com.example.save_money.data.Repository
+import com.example.save_money.model.Detail
+import com.example.save_money.data.repository.Repository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

@@ -1,10 +1,11 @@
-package com.example.save_money.screen.home
+package com.example.save_money.screen.detail
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -16,11 +17,12 @@ import androidx.compose.ui.window.Dialog
 import com.example.save_money.ui.theme.black
 
 @Composable
-fun AddDialog(
+fun UpdateDialog(
     open: MutableState<Boolean>,
-    addfun: () -> Unit,
     text: MutableState<String>,
-    amount: MutableState<Int>
+    amount: MutableState<Int>,
+    updatefun: () -> Unit,
+    deletefun: () -> Unit
 ) {
 
     if (open.value) {
@@ -40,8 +42,7 @@ fun AddDialog(
                     Spacer(modifier = Modifier.padding(10.dp))
 
                     Text(
-                        text = "新增收入",
-//                        color = Color.Black,
+                        text = "Update",
                         fontWeight = FontWeight.Bold,
                         fontSize = 30.sp
                     )
@@ -84,26 +85,45 @@ fun AddDialog(
                         maxLines = 10
                     )
 
-                    Button(
-                        modifier = Modifier.padding(top = 40.dp),
-                        onClick = addfun,
-                        colors = ButtonDefaults.buttonColors(
-                            backgroundColor = black
-                        )
+                    Spacer(modifier = Modifier.padding(5.dp))
+
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.Center
                     ) {
-                        Box(
-                            modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
-                            contentAlignment = Alignment.Center
-                        ) {
-                            Text(
-                                text = "加入",
-                                color = Color.White
+                        Button(
+                            onClick = updatefun,
+                            colors = ButtonDefaults.buttonColors(
+                                backgroundColor = black
                             )
+                        ) {
+                                Box() {
+                                    Text(
+                                        text = "Update!",
+                                        color = Color.White
+                                    )
+                                }
+                        }
+
+                        Spacer(modifier = Modifier.padding(20.dp))
+
+                        Button(
+                            onClick = deletefun,
+                            colors = ButtonDefaults.buttonColors(
+                                backgroundColor = black
+                            )
+                        ) {
+                            Box() {
+                                Text(
+                                    text = "Delete!",
+                                    color = Color.White
+                                )
+                            }
                         }
                     }
                 }
             }
         }
-
     }
 }

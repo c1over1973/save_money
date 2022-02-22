@@ -2,26 +2,23 @@ package com.example.save_money.screen.home
 
 import android.widget.Toast
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Button
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
-import com.example.save_money.data.Detail
+import com.example.save_money.model.Detail
 import com.example.save_money.navigation.Screen
-import com.example.save_money.navigation.SetupNavGraph
 import com.example.save_money.screen.Navigationbar
+import com.example.save_money.ui.theme.black
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -32,7 +29,7 @@ fun HomeScreen(
 ) {
     val getgoals = homeViewModel.readAllGoals.observeAsState(listOf()).value
     val context = LocalContext.current
-    val sdf = SimpleDateFormat("M/dd hh:mm")
+    val sdf = SimpleDateFormat("M/dd HH:mm")
     var currentDate = ""
 
 
@@ -112,13 +109,19 @@ fun HomeScreen(
                         onClick = {
                             openDialog.value = true
                             currentDate = sdf.format(Date())
-                        }
+                        },
+                        colors = ButtonDefaults.buttonColors(
+                            backgroundColor = black
+                        )
                     ) {
                         Box(
                             modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
                             contentAlignment = Alignment.Center
                         ) {
-                            Text(text = "add new!")
+                            Text(
+                                text = "add new!",
+                                color = Color.White
+                            )
                         }
                     }
 
@@ -126,10 +129,14 @@ fun HomeScreen(
                     AddDialog(
                         open = openDialog,
                         addfun = {
-                            val detail = Detail(0, amount.value, text.value, currentDate)
-                            homeViewModel.addDetail(detail)
-                            homeViewModel.updateSum(getgoals[0].goal, getgoals[0].sum + amount.value)
-                            Toast.makeText(context, "已新增明細", Toast.LENGTH_SHORT).show()
+                            if(amountCheck(amount.value)){
+                                val detail = Detail(0, amount.value, text.value, currentDate)
+                                homeViewModel.addDetail(detail)
+                                homeViewModel.updateSum(getgoals[0].goal, getgoals[0].sum + amount.value)
+                                Toast.makeText(context, "已新增明細!", Toast.LENGTH_SHORT).show()
+                            }else{
+                                Toast.makeText(context, "金額請勿為0!", Toast.LENGTH_SHORT).show()
+                            }
                             text.value = ""
                             amount.value = 0
                             openDialog.value = false
@@ -145,5 +152,9 @@ fun HomeScreen(
 
 
 
+}
+
+fun amountCheck(amount: Int): Boolean {
+    return amount != 0
 }
 

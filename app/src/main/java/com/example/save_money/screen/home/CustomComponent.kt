@@ -23,6 +23,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
+import com.example.save_money.ui.theme.green
 
 @Composable
 fun CustomComponent(
@@ -30,7 +31,7 @@ fun CustomComponent(
     indicatorValue: Int = 0,
     maxIndicatorValue: Int = 100,
     backgroundIndicatorColor: Color = MaterialTheme.colors.onSurface.copy(alpha = ContentAlpha.disabled),
-    foregroundIndicatorColor: Color = MaterialTheme.colors.primary,
+    foregroundIndicatorColor: Color = green,
     bigTextFontSize: TextUnit = MaterialTheme.typography.h3.fontSize,
     bigTextColor: Color = MaterialTheme.colors.onSurface,
     smallText: String = "達成度",
@@ -76,13 +77,11 @@ fun CustomComponent(
                 backgroundIndicator(
                     componentSize = componentSize,
                     indicatorColor = backgroundIndicatorColor
-//                    indicatorStrokeWidth = backgroundIndicatorStrokeWidth
                 )
                 foregroundIndicator(
                     sweepAngle = sweepAngle,
                     componentSize = componentSize,
                     indicatorColor = foregroundIndicatorColor
-//                    indicatorStrokeWidth = foregroundIndicatorStrokeWidth
                 )
             },
         verticalArrangement = Arrangement.Center,
@@ -126,8 +125,7 @@ fun CustomComponent(
 
 fun DrawScope.backgroundIndicator(
     componentSize: Size,
-    indicatorColor: Color,
-//    indicatorStrokeWidth: Float
+    indicatorColor: Color
 ) {
     drawArc(
         size = componentSize,
@@ -149,8 +147,7 @@ fun DrawScope.backgroundIndicator(
 fun DrawScope.foregroundIndicator(
     sweepAngle: Float,
     componentSize: Size,
-    indicatorColor: Color,
-//    indicatorStrokeWidth: Float
+    indicatorColor: Color
 ) {
     drawArc(
         size = componentSize,

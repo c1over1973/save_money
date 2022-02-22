@@ -1,8 +1,8 @@
-package com.example.save_money.data
+package com.example.save_money.data.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.example.save_money.data.Constants.GOALS_TABLE
+import com.example.save_money.model.Goals
 
 @Dao
 interface GoalsDao {
@@ -15,9 +15,6 @@ interface GoalsDao {
 
     @Query("DELETE FROM goals_table")
     suspend fun deleteAllGoals()
-
-    @Update
-    suspend fun updateGoals(goals: Goals)
 
     @Query("UPDATE goals_table SET sum =:sum WHERE goal =:goal")
     suspend fun updateSum(goal: String, sum: Int)

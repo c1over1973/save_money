@@ -1,9 +1,8 @@
 package com.example.save_money.navigation
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -13,6 +12,7 @@ import com.example.save_money.screen.detail.DetailScreen
 import com.example.save_money.screen.home.HomeScreen
 import com.example.save_money.screen.home.HomeViewModel
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun SetupNavGraph(
     navController: NavHostController,

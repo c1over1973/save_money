@@ -1,52 +1,66 @@
 package com.example.save_money.screen.detail
 
-import android.provider.CalendarContract
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material.Colors
-import androidx.compose.material.MaterialTheme.colors
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Card
 import androidx.compose.material.Text
-import androidx.compose.material.Typography
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.save_money.data.Detail
-import com.example.save_money.navigation.Screen
-import com.example.save_money.ui.theme.Typography
-import java.sql.Time
+import androidx.compose.ui.unit.sp
+import com.example.save_money.model.Detail
+import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
 @Composable
-fun ListContent(detail: Detail) {
-    Row(
+fun ListContent(
+    detail: Detail,
+    clickitem: () -> Unit
+) {
+
+    val df = DecimalFormat("#,###")
+
+    Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(5.dp),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(20.dp)
+            .clickable (
+                onClick = clickitem
+                    ),
+        shape = RoundedCornerShape(5.dp),
+        backgroundColor = Color.Gray
     ) {
-        Text(
-            text = "$${detail.amount}",
-            fontSize = Typography.h4.fontSize
-        )
-        Text(
-            text = detail.content,
-            fontSize = Typography.h4.fontSize
-        )
-        Text(
+        Row(
             modifier = Modifier
-                .padding(top = 12.dp)
                 .fillMaxWidth()
-                .wrapContentWidth(Alignment.End),
-            text = detail.date,
-//            color = colors.surface.copy(alpha = 0.3f),
-            fontSize = Typography.h6.fontSize
-        )
+                .padding(5.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(
+                modifier = Modifier.fillMaxWidth(0.35f),
+                text = "$${df.format(detail.amount)}",
+                fontSize = 20.sp
+            )
+            Text(
+                modifier = Modifier.fillMaxWidth(0.6f),
+                text = detail.content,
+                fontSize = 20.sp
+            )
+            Text(
+                modifier = Modifier
+                    .padding(top = 12.dp)
+                    .fillMaxWidth()
+                    .wrapContentWidth(Alignment.End),
+                text = detail.date,
+                fontSize = 15.sp
+            )
+        }
     }
+
 }
 
 @Composable
@@ -60,6 +74,7 @@ fun ListContentPreview() {
             amount = 500,
             content = "紅包",
             date = currentDate
-        )
+        ),
+        clickitem = {}
     )
 }
